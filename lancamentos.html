@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Novo Lançamento</h2>
+
+<form method="post">
+    <select name="tipo" class="form-control mb-2">
+        <option value="entrada">Entrada</option>
+        <option value="saida">Saída</option>
+    </select>
+
+    <input name="valor" class="form-control mb-2" placeholder="Valor">
+    <input name="data" type="date" class="form-control mb-2">
+    <input name="descricao" class="form-control mb-2" placeholder="Descrição">
+
+    <button class="btn btn-success">Salvar</button>
+</form>
+
+{% endblock %}

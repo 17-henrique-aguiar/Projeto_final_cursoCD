@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Dashboard</h2>
+
+<div class="row">
+    <div class="col">
+        <div class="alert alert-success">Entrada: R$ {{ entrada }}</div>
+    </div>
+    <div class="col">
+        <div class="alert alert-danger">Saída: R$ {{ saida }}</div>
+    </div>
+    <div class="col">
+        <div class="alert alert-primary">Saldo: R$ {{ saldo }}</div>
+    </div>
+</div>
+
+<a href="/lacamentos" class="btn btn-primary mb-3">Novo Lançamento</a>
+
+<table class="table">
+    <tr>
+        <th>Tipo</th>
+        <th>Valor</th>
+        <th>Data</th>
+        <th>Descrição</th>
+    </tr>
+
+    {% for l in lancamentos %}
+    <tr>
+        <td>{{ l.tipo }}</td>
+        <td>{{ l.valor }}</td>
+        <td>{{ l.data }}</td>
+        <td>{{ l.descricao }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock %}
