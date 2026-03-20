@@ -1,23 +1,23 @@
 from flask import Flask, render_template, redirect, request, url_for
 from models import db, Usuario, Lancamento
-from flask_login import LoginMaster, login_user, login_required, logout_user, current_user
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 import pandas as pd
 
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = '123456'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://banco.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///banco.db'
 
 db.init_app(app)
 
-login_manager = LoginMaster()
+login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
 @login_manager.user_loader
 def load_user(user_id):
-    return Usuario.query.get(int(usser_id))
+    return Usuario.query.get(int(user_id))
 
 with app.app_context():
     db.create_all()
@@ -64,7 +64,7 @@ def login():
         
     return render_template('login.html')
 
-@app.route('/cadstro', method=['GET', 'POST'])
+@app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
     if request.method == 'POST':
         senha_hash = generate_password_hash(request.form['password'])
@@ -79,7 +79,7 @@ def cadastro():
 
         return redirect('/login')
     
-    return render_template('cadstro.html')
+    return render_template('cadastro.html')
 
 @app.route('/logout')
 @login_required
@@ -87,7 +87,7 @@ def logout():
     logout_user()
     return redirect('/login')
 
-@app.route('/lancamentos', method=['GET', 'POST'])
+@app.route('/lancamentos', methods=['GET', 'POST'])
 @login_required
 def lancamentos():
     if request.method == 'POST':
