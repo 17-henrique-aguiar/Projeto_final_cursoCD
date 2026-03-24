@@ -102,7 +102,7 @@ def lancamentos():
         db.session.add(novo)
         db.session.commit()
 
-        return
+        return redirect('/dashboard')
     
     return render_template('/lancamentos.html')
 
